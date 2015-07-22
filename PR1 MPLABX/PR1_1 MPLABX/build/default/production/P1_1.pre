@@ -1,0 +1,63 @@
+
+# 1 "P1_1.asm"
+;==========================================================================================
+;
+; Author : Cytron Technologies
+; Project : DIY Project
+; Project Descrription : PR1 (LED Blinking)
+; Date : 25 May 2009
+;
+;===========================================================================================
+
+
+;===========================================================================================
+; Project Description
+;===========================================================================================
+; This file is a basic code template for assembly code generation on the PICmicro PIC16F84A.
+; This file contains the basic code building blocks to build upon.
+;
+; If interrupts are not used all code presented between the ORG 0x004 directive and the
+; label main can be removed. In addition the variable assignments for 'w_temp' and
+; 'status_temp' can be removed.
+;
+; Refer to the MPASM User's Guide for additional information on     
+; features of the assembler (Document DS33014).
+;
+; Refer to the respective PICmicro data sheet for additional
+; information on the instruction set.
+;
+;=============================================================================================
+;
+;
+; Files required:
+;
+;
+;==============================================================================================
+;
+; Notes:
+; 1. For beginner, the parts that you need to edit are: BANK, TRIS, PORT, DELAY
+; 2. All the general I/O pin only can use as input or output with the prior setting at TRIS.
+; 3. Let say in this case, we use pin 1,2 and 3 (RA2, RA3, RA4) as input and pin 10,11,12 (RB4, RB5, RB6) as output. So, we must
+; set TRISA,2 TRISA,3 TRISA,4 to '1' and TRISB,4 TRISB,5 TRISB,6 to '0'(in assembly, set '1' we use BSF, set '0' we use BCF
+; which we can write in this way:
+; BSF TRISA,2
+; BSF TRISA,3
+; BSF TRISA,4
+;
+; BCF TRISB,4
+; BCF TRISB,5
+; BCF TRISB,6
+; 4. But, pls remember that before you can change TRISA, you need to switch from BANK0 to BANK1, then switch back to BANK0 after
+; setting the TRISA.BANK0 is used to control the actual operation of the PIC.For example to tell the PIC which bits of Port
+; are input and which are output.BANK1 is used to manipulated the data.
+; 5. Bare in mind that in programming, we read the input; and write the output.
+; 6. In assembly, to read we use BTFSC or BTFSS; while to write we use MOVLW, MOVWF, CLF, BSF or BCF. (and other type of
+; insrtuction that you can refer to PIC datasheet)
+; 7. DELAY is a kind of method that we used to use it to delay our PIC for some operation.
+; 8. We already prepare the DELAY subroutine, you just CALL DELAY when you need it.
+; 9. You also can change the delay time by changing the value in DELAY subroutine. (the maximum value is 255)
+;
+;=================================================================================================
+
+
+list p=16F84A ; list directive to define processor

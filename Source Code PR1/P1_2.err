@@ -1,0 +1,14 @@
+Warning[207] D:\DIY\DIY-PR1A-PIC16F84A\SOURCE CODE PR1\P1_2.ASM 84 : Found label after column 1. (D1)
+Warning[207] D:\DIY\DIY-PR1A-PIC16F84A\SOURCE CODE PR1\P1_2.ASM 85 : Found label after column 1. (D2)
+Warning[207] D:\DIY\DIY-PR1A-PIC16F84A\SOURCE CODE PR1\P1_2.ASM 86 : Found label after column 1. (D3)
+Warning[207] D:\DIY\DIY-PR1A-PIC16F84A\SOURCE CODE PR1\P1_2.ASM 87 : Found label after column 1. (COUNT)
+Message[302] D:\DIY\DIY-PR1A-PIC16F84A\SOURCE CODE PR1\P1_2.ASM 104 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\DIY\DIY-PR1A-PIC16F84A\SOURCE CODE PR1\P1_2.ASM 105 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\DIY\DIY-PR1A-PIC16F84A\SOURCE CODE PR1\P1_2.ASM 106 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\DIY\DIY-PR1A-PIC16F84A\SOURCE CODE PR1\P1_2.ASM 107 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[305] D:\DIY\DIY-PR1A-PIC16F84A\SOURCE CODE PR1\P1_2.ASM 131 : Using default destination of 1 (file).
+Message[305] D:\DIY\DIY-PR1A-PIC16F84A\SOURCE CODE PR1\P1_2.ASM 142 : Using default destination of 1 (file).
+Message[305] D:\DIY\DIY-PR1A-PIC16F84A\SOURCE CODE PR1\P1_2.ASM 153 : Using default destination of 1 (file).
+Message[305] D:\DIY\DIY-PR1A-PIC16F84A\SOURCE CODE PR1\P1_2.ASM 168 : Using default destination of 1 (file).
+Message[305] D:\DIY\DIY-PR1A-PIC16F84A\SOURCE CODE PR1\P1_2.ASM 170 : Using default destination of 1 (file).
+Message[305] D:\DIY\DIY-PR1A-PIC16F84A\SOURCE CODE PR1\P1_2.ASM 172 : Using default destination of 1 (file).

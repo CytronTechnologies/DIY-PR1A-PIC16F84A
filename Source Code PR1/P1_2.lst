@@ -1,0 +1,401 @@
+MPASM  5.51                          P1_2.ASM   7-22-2015  17:24:13         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;==========================================================================================
+                      00002 ;
+                      00003 ;       Author                                  : Cytron Technologies
+                      00004 ;   Project                                     : DIY Project
+                      00005 ;       Project Descrription    : PR1 (LED Blinking)
+                      00006 ;       Date                                    : 25 May 2009
+                      00007 ;
+                      00008 ;===========================================================================================
+                      00009 
+                      00010 
+                      00011 ;===========================================================================================
+                      00012 ;       Project Description
+                      00013 ;===========================================================================================
+                      00014 ;   This file is a basic code template for assembly code generation  
+                      00015 ;   on the PICmicro PIC16F84A. This file contains the basic code      
+                      00016 ;   building blocks to build upon.                                      
+                      00017 ;                                                                     
+                      00018 ;   If interrupts are not used all code presented between the ORG     
+                      00019 ;   0x004 directive and the label main can be removed. In addition    
+                      00020 ;   the variable assignments for 'w_temp' and 'status_temp' can       
+                      00021 ;   be removed.                                                                               
+                      00022 ;                                                                     
+                      00023 ;   Refer to the MPASM User's Guide for additional information on     
+                      00024 ;   features of the assembler (Document DS33014).                     
+                      00025 ;                                                                     
+                      00026 ;   Refer to the respective PICmicro data sheet for additional        
+                      00027 ;   information on the instruction set.                               
+                      00028 ;                                                                     
+                      00029 ;   Template file assembled with MPLAB V8.30.00 and MPASM V5.30.01.   
+                      00030 ;                                                                     
+                      00031 ;============================================================================================
+                      00032 
+                      00033 ;============================================================================================
+                      00034 ;  
+                      00035 ;                                                                   
+                      00036 ;    Files required:                                                  
+                      00037 ;                                                                     
+                      00038 ;                                                                     
+                      00039 ;===========================================================================================            
+                                                                                     
+                      00040 ;                                                                     
+                      00041 ;    Notes:                                                           
+                      00042 ;     1. For beginner, the parts that you need to edit are: BANK, TRIS, PORT, DELAY                     
+                                                                        
+                      00043 ;     2. All the general I/O pin only can use as input or output with the prior setting at TRIS.        
+                                                                                     
+                      00044 ;     3. Let say in this case, we use pin 1,2 and 3 (RA2, RA3, RA4) as input and pin 10,11,12 (RB4, RB5,
+                             RB6) as output. So, we must 
+                      00045 ;        set TRISA,2 TRISA,3 TRISA,4 to '1' and TRISB,4 TRISB,5 TRISB,6 to '0'(in assembly, set '1' we u
+                            se BSF, set '0' we use BCF
+                      00046 ;        which we can write in this way: 
+                      00047 ;                                                                                BSF    TRISA,2         
+                                                                         
+MPASM  5.51                          P1_2.ASM   7-22-2015  17:24:13         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00048 ;                                        BSF    TRISA,3
+                      00049 ;                                                                            BSF        TRISA,4  
+                      00050 ;
+                      00051 ;                                                                                BCF    TRISB,4
+                      00052 ;                                                                                BCF    TRISB,5
+                      00053 ;                                                                                BCF    TRISB,6
+                      00054 ;     4. But, pls remember that before you can change TRISA, you need to switch from BANK0 to BANK1, the
+                            n switch back to BANK0 after
+                      00055 ;        setting the TRISA.BANK0 is used to control the actual operation of the PIC.For example to tell 
+                            the PIC which bits of Port 
+                      00056 ;        are input and which are output.BANK1 is used to manipulated the data. 
+                      00057 ;     5. Bare in mind that in programming, we read the input; and write the output. 
+                      00058 ;     6. In assembly, to read we use BTFSC or BTFSS; while to write we use MOVLW, MOVWF, CLF, BSF or BCF
+                            . (and other type of 
+                      00059 ;        insrtuction that you can refer to PIC datasheet)   
+                      00060 ;     7. DELAY is a kind of method that we used to use it to delay our PIC for some operation.
+                      00061 ;         8. We already prepare the DELAY subroutine, you just CALL DELAY when you need it.
+                      00062 ;     9. You also can change the delay time by changing the value in DELAY subroutine. (the maximum valu
+                            e is 255)          
+                      00063 ;
+                      00064 ;==============================================================================================
+                      00065 
+                      00066 
+                      00067 
+                      00068         list      p=16F84A            ; list directive to define processor
+                      00069         #include <p16F84A.inc>        ; processor specific variable definitions
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ;  MPASM PIC16F84A processor include
+                      00005 ; 
+                      00006 ;  (c) Copyright 1999-2013 Microchip Technology, All rights reserved
+                      00007 ;==========================================================================
+                      00008 
+                      00208         LIST
+                      00070 
+2007   3FF2           00071         __CONFIG   0X3FF2
+                      00072 
+                      00073 ; '__CONFIG' directive is used to embed configuration data within .asm file.
+                      00074 ; The lables following the directive are located in the respective .inc file.
+                      00075 ; See respective data sheet for additional information on configuration word.
+                      00076 
+                      00077 
+                      00078 
+                      00079 
+                      00080 ;================================================================================== 
+                      00081 ; VARIABLE DEFINITION
+                      00082 ;==================================================================================
+                      00083 
+Warning[207]: Found label after column 1. (D1)
+  00000020            00084         D1                      EQU             0X20    ;FOR DELAY
+Warning[207]: Found label after column 1. (D2)
+  00000021            00085         D2                      EQU             0X21    ;FOR DELAY
+MPASM  5.51                          P1_2.ASM   7-22-2015  17:24:13         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[207]: Found label after column 1. (D3)
+  00000022            00086         D3                      EQU             0X22    ;FOR DELAY
+Warning[207]: Found label after column 1. (COUNT)
+  00000023            00087         COUNT           EQU             0X23    ;FOR COUNT THE NO OF LOOPING
+                      00088 
+                      00089 ;==================================================================================
+                      00090 
+                      00091 
+                      00092 ;==================================================================================
+                      00093 ; WRITE YOUR PROGRAM HERE
+                      00094 ;==================================================================================
+                      00095 
+0000                  00096                 ORG     0x000             ; processor reset vector
+0000   2801           00097                 goto    main              ; go to beginning of program
+                      00098 
+0001                  00099 main
+                      00100 
+                      00101 ; initialize of your PIC, setting the general I/O in TRIS               
+                      00102 
+0001   1683           00103                 BSF             STATUS,5                                ;SWITCH TO BANK1; BIT 5 OF STATU
+                            S REGISTER IS SET TO 1
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0002   0186           00104                 CLRF    TRISB                                   ;SET PORTB AS OUTPUT
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0003   1505           00105                 BSF             TRISA,2                                 ;SET RA2 AS INPUT
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0004   1585           00106                 BSF             TRISA,3                                 ;SET RA3 AS INPUT
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0005   1605           00107                 BSF             TRISA,4                                 ;SET RA4 AS INPUT
+0006   1283           00108                 BCF             STATUS,5                                ;SWITCH TO BANK0; BIT 5 OF STATU
+                            S REGISTER IS SET TO 0
+                      00109 
+0007   30FF           00110                 MOVLW   B'11111111'
+0008   0086           00111                 MOVWF   PORTB                                   ;SET ALL 8 PIN IN PORTB TO HIGH(1)
+                      00112 
+                      00113 ;the main program begin here
+                      00114 
+0009                  00115 START
+0009   1D05           00116                 BTFSS           PORTA,2                         ;check signal at pushbutton1, if press t
+                            hen goto following line, else skip the following line
+000A   2010           00117                 CALL            RED                                     ;button1 pressed, program execut
+                            e the operation in subroutine RED       
+000B   1D85           00118                 BTFSS           PORTA,3                         ;check signal at pushbutton2, if press t
+                            hen goto following line, else skip the following line
+000C   2019           00119                 CALL            GREEN                           ;button2 pressed, program execute the op
+                            eration in subroutine GREEN
+000D   1E05           00120                 BTFSS           PORTA,4                         ;check signal at pushbutton3, if press t
+                            hen goto following line, else skip the following line
+000E   2022           00121                 CALL            YELLOW                          ;button3 pressed, program execute the op
+                            eration in subroutine YELLOW
+000F   2809           00122                 GOTO            START                           ;no any button being pressed, program ke
+                            ep looping to check the pushbuttons' signal 
+                      00123 
+MPASM  5.51                          P1_2.ASM   7-22-2015  17:24:13         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0010                  00124 RED     
+0010   3014           00125                 MOVLW           D'20'                           ;WRITE A CONSTANT FOR COUNT
+0011   00A3           00126                 MOVWF           COUNT                           ;VALUE OF COUNT
+0012   1306           00127                 BCF                     PORTB,6                         ;OFF RED LED
+0013   202B           00128                 CALL            DELAY                           ;DELAY                          
+0014   1706           00129                 BSF                     PORTB,6                         ;ON RED LED
+0015   202B           00130                 CALL            DELAY                           ;DELAY
+Message[305]: Using default destination of 1 (file).
+0016   0BA3           00131                 DECFSZ          COUNT                           ;DECREASE THE VALUE OF COUNT AND SKIP TH
+                            E NEST LINE WHEN IT REACH ZERO
+0017   2812           00132                 GOTO            $-5                                     ;IF NOT ZERO, IT WILL LEAD THE P
+                            ROGRAM TO 5 LINE ABOVE, WHICH IS OFF THE LED
+0018   0008           00133                 RETURN
+                      00134 
+0019                  00135 GREEN
+0019   3014           00136                 MOVLW           D'20'                           ;WRITE A CONSTANT FOR COUNT 
+001A   00A3           00137                 MOVWF           COUNT                           ;VALUE OF COUNT
+001B   1286           00138                 BCF                     PORTB,5                         ;OFF GREEN LED
+001C   202B           00139                 CALL            DELAY                           ;DELAY
+001D   1686           00140                 BSF                     PORTB,5                         ;ON GREEN LED
+001E   202B           00141                 CALL            DELAY                           ;DELAY
+Message[305]: Using default destination of 1 (file).
+001F   0BA3           00142                 DECFSZ          COUNT                           ;DECREASE THE VALUE OF COUNT AND SKIP TH
+                            E NEST LINE WHEN IT REACH ZERO
+0020   281B           00143                 GOTO            $-5                                     ;IF NOT ZERO, IT WILL LEAD THE P
+                            ROGRAM TO 5 LINE ABOVE, WHICH IS OFF THE LED
+0021   0008           00144                 RETURN
+                      00145 
+0022                  00146 YELLOW
+0022   3014           00147                 MOVLW           D'20'                           ;WRITE A CONSTANT FOR COUNT
+0023   00A3           00148                 MOVWF           COUNT                           ;VALUE OF COUNT
+0024   1206           00149                 BCF                     PORTB,4                         ;OFF YELLOW LED
+0025   202B           00150                 CALL            DELAY                           ;DELAY
+0026   1606           00151                 BSF                     PORTB,4                         ;ON YELLOW LED
+0027   202B           00152                 CALL            DELAY                           ;DELAY
+Message[305]: Using default destination of 1 (file).
+0028   0BA3           00153                 DECFSZ          COUNT                           ;DECREASE THE VALUE OF COUNT AND SKIP TH
+                            E NEST LINE WHEN IT REACH ZERO
+0029   2824           00154                 GOTO            $-5                                     ;IF NOT ZERO, IT WILL LEAD THE P
+                            ROGRAM TO 5 LINE ABOVE, WHICH IS OFF THE LED
+002A   0008           00155                 RETURN
+                      00156 
+                      00157 
+                      00158 ;========================================================================================
+                      00159 ; DELAY SUBROUTINE
+                      00160 ;========================================================================================
+                      00161 
+002B   30B4           00162 DELAY           MOVLW   D'180'                  ;PAUSE FOR ABOUT 10mS (u can change the 180, 100, 1 valu
+                            e to obtain different delay timing)
+002C   00A2           00163                         MOVWF   D3
+002D   3064           00164                         MOVLW   D'100'
+002E   00A1           00165                         MOVWF   D2
+002F   3001           00166                         MOVLW   D'1'
+MPASM  5.51                          P1_2.ASM   7-22-2015  17:24:13         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0030   00A0           00167                         MOVWF   D1
+Message[305]: Using default destination of 1 (file).
+0031   0BA0           00168                         DECFSZ  D1
+0032   2831           00169                         GOTO    $-1
+Message[305]: Using default destination of 1 (file).
+0033   0BA1           00170                         DECFSZ  D2
+0034   282F           00171                         GOTO    $-5
+Message[305]: Using default destination of 1 (file).
+0035   0BA2           00172                         DECFSZ  D3
+0036   282D           00173                         GOTO    $-9
+0037   0008           00174                         RETURN
+                      00175 
+                      00176 
+                      00177                 END                     ; directive 'end of program'
+MPASM  5.51                          P1_2.ASM   7-22-2015  17:24:13         PAGE  6
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+C                                 00000000
+COUNT                             00000023
+D1                                00000020
+D2                                00000021
+D3                                00000022
+DC                                00000001
+DELAY                             0000002B
+EEADR                             00000009
+EECON1                            00000088
+EECON2                            00000089
+EEDATA                            00000008
+EEIE                              00000006
+EEIF                              00000004
+F                                 00000001
+FSR                               00000004
+GIE                               00000007
+GREEN                             00000019
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+NOT_PD                            00000003
+NOT_RBPU                          00000007
+NOT_TO                            00000004
+OPTION_REG                        00000081
+PCL                               00000002
+PCLATH                            0000000A
+PORTA                             00000005
+PORTB                             00000006
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RD                                00000000
+RED                               00000010
+RP0                               00000005
+MPASM  5.51                          P1_2.ASM   7-22-2015  17:24:13         PAGE  7
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RP1                               00000006
+START                             00000009
+STATUS                            00000003
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+W                                 00000000
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+YELLOW                            00000022
+Z                                 00000002
+_CONFIG                           00002007
+_CP_OFF                           00003FFF
+_CP_ON                            0000000F
+_DEVID1                           00002006
+_FOSC_EXTRC                       00003FFF
+_FOSC_HS                          00003FFE
+_FOSC_LP                          00003FFC
+_FOSC_XT                          00003FFD
+_HS_OSC                           00003FFE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_LP_OSC                           00003FFC
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC                           00003FFF
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_XT_OSC                           00003FFD
+MPASM  5.51                          P1_2.ASM   7-22-2015  17:24:13         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+__16F84A                          00000001
+__DEBUG                           1
+main                              00000001
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXX--------
+2000 : -------X-------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:    56
+Program Memory Words Free:   968
+
+
+Errors   :     0
+Warnings :     4 reported,     0 suppressed
+Messages :    10 reported,     0 suppressed
+
+
