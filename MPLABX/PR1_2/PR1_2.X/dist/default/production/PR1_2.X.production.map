@@ -1,0 +1,56 @@
+MPLINK 5.06, LINKER
+Linker Map File - Created Thu Jul 23 08:22:47 2015
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000070
+                   .cinit    romdata   0x000038    program   0x000004
+.config_2007_BUILD/DEFAULT/PRODUCTION/_EXT/17       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000039      
+                            0x002007    0x002007      
+            59 out of 1094 program addresses used, program memory utilization is 5%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    DELAY   0x00002b    program     static ..\..\..\Source file\P1_2.asm
+                    GREEN   0x000019    program     static ..\..\..\Source file\P1_2.asm
+                      RED   0x000010    program     static ..\..\..\Source file\P1_2.asm
+                    START   0x000009    program     static ..\..\..\Source file\P1_2.asm
+                   YELLOW   0x000022    program     static ..\..\..\Source file\P1_2.asm
+             _.org_0_0017   0x000017    program     static ..\..\..\Source file\P1_2.asm
+             _.org_0_0020   0x000020    program     static ..\..\..\Source file\P1_2.asm
+             _.org_0_0029   0x000029    program     static ..\..\..\Source file\P1_2.asm
+             _.org_0_0032   0x000032    program     static ..\..\..\Source file\P1_2.asm
+             _.org_0_0034   0x000034    program     static ..\..\..\Source file\P1_2.asm
+             _.org_0_0036   0x000036    program     static ..\..\..\Source file\P1_2.asm
+                     main   0x000001    program     static ..\..\..\Source file\P1_2.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                     main   0x000001    program     static ..\..\..\Source file\P1_2.asm
+                    START   0x000009    program     static ..\..\..\Source file\P1_2.asm
+                      RED   0x000010    program     static ..\..\..\Source file\P1_2.asm
+             _.org_0_0017   0x000017    program     static ..\..\..\Source file\P1_2.asm
+                    GREEN   0x000019    program     static ..\..\..\Source file\P1_2.asm
+             _.org_0_0020   0x000020    program     static ..\..\..\Source file\P1_2.asm
+                   YELLOW   0x000022    program     static ..\..\..\Source file\P1_2.asm
+             _.org_0_0029   0x000029    program     static ..\..\..\Source file\P1_2.asm
+                    DELAY   0x00002b    program     static ..\..\..\Source file\P1_2.asm
+             _.org_0_0032   0x000032    program     static ..\..\..\Source file\P1_2.asm
+             _.org_0_0034   0x000034    program     static ..\..\..\Source file\P1_2.asm
+             _.org_0_0036   0x000036    program     static ..\..\..\Source file\P1_2.asm
+
+

@@ -1,0 +1,50 @@
+MPLINK 5.06, LINKER
+Linker Map File - Created Thu Jul 23 08:32:08 2015
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x00007e
+                   .cinit    romdata   0x00003f    program   0x000004
+.config_2007_BUILD/DEFAULT/PRODUCTION/_EXT/17       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000040      
+                            0x002007    0x002007      
+            66 out of 1094 program addresses used, program memory utilization is 6%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    DELAY   0x000032    program     static ..\..\..\Source file\P1_3.asm
+                      ONE   0x00000f    program     static ..\..\..\Source file\P1_3.asm
+                    START   0x000008    program     static ..\..\..\Source file\P1_3.asm
+                    THREE   0x000027    program     static ..\..\..\Source file\P1_3.asm
+                      TWO   0x00001d    program     static ..\..\..\Source file\P1_3.asm
+             _.org_0_0039   0x000039    program     static ..\..\..\Source file\P1_3.asm
+             _.org_0_003B   0x00003b    program     static ..\..\..\Source file\P1_3.asm
+             _.org_0_003D   0x00003d    program     static ..\..\..\Source file\P1_3.asm
+                     main   0x000001    program     static ..\..\..\Source file\P1_3.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                     main   0x000001    program     static ..\..\..\Source file\P1_3.asm
+                    START   0x000008    program     static ..\..\..\Source file\P1_3.asm
+                      ONE   0x00000f    program     static ..\..\..\Source file\P1_3.asm
+                      TWO   0x00001d    program     static ..\..\..\Source file\P1_3.asm
+                    THREE   0x000027    program     static ..\..\..\Source file\P1_3.asm
+                    DELAY   0x000032    program     static ..\..\..\Source file\P1_3.asm
+             _.org_0_0039   0x000039    program     static ..\..\..\Source file\P1_3.asm
+             _.org_0_003B   0x00003b    program     static ..\..\..\Source file\P1_3.asm
+             _.org_0_003D   0x00003d    program     static ..\..\..\Source file\P1_3.asm
+
+
